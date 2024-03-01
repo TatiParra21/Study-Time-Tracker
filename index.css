@@ -1,0 +1,22 @@
+
+body{
+    text-align: center;
+    min-width: 400px;
+}
+#everything-sec{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#button-sec{
+    display:flex;
+    flex-direction: row;
+    justify-content: center; 
+    align-items: center;
+}
+
+#hour-container{
+    font-size: 2em;
+}
