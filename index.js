@@ -5,19 +5,20 @@ const hourButton = document.getElementById("hour-button")
 const hourContainer = document.getElementById("hour-container")
 const resetButton = document.getElementById("reset-button")
 const titlePart = document.getElementById("title-part")
+const timeLeftContainer = document.getElementById("time-left")
 let myTime 
 
-
+let fourHours 
 let totalTime 
 
 
 addButton.addEventListener("click",function(){
     let inputNum = Number(inputTime.value)
     totalTime += inputNum
-    localStorage.setItem("totalMin",JSON.stringify(totalTime))
+    localStorage.setItem("totalMin",JSON.stringify(totalTime)) //saving the total minutes to keep track off
     myTime = timeConvert(totalTime)
     localStorage.setItem("currentTime",myTime)
-    hourContainer.innerHTML = localStorage.getItem("currentTime")
+    hourContainer.innerHTML = localStorage.getItem("currentTime") //we are just putting what we have inthe local staorage we just put in
     checkTime(totalTime)
 })
 
@@ -50,7 +51,7 @@ hourButton.addEventListener("click",function(){
 })
 
 function timeConvert(n){
-    console.log(totalTime)
+    
 let minutes = n % 60 //This calculates the remaining minutes after converting the 
 //inputed number "n" into whole hours. the % operator gives the remainder when "n" is divided by 60, which is how many minutes in an hour.
 
@@ -89,9 +90,10 @@ function setUp(){
         console.log(totalTime)
     }else{
     
-        console.log("not found?")
         myTime = "00:00"
         totalTime = 0
+        fourHours = "04:00"
+        timeLeftContainer.innerHTML = fourHours
         hourContainer.innerHTML = myTime
     }
     
