@@ -15,6 +15,7 @@ let totalTime
 addButton.addEventListener("click",function(){
     let inputNum = Number(inputTime.value)
     totalTime += inputNum
+    timeLeftContainer.innerHTML = fourHourKeeping(fourHours,totalTime)
     localStorage.setItem("totalMin",JSON.stringify(totalTime)) //saving the total minutes to keep track off
     myTime = timeConvert(totalTime)
     localStorage.setItem("currentTime",myTime)
@@ -92,8 +93,8 @@ function setUp(){
     
         myTime = "00:00"
         totalTime = 0
-        fourHours = "04:00"
-        timeLeftContainer.innerHTML = fourHours
+        fourHours = 240
+        timeLeftContainer.innerHTML =  "04:00 left"
         hourContainer.innerHTML = myTime
     }
     
@@ -105,6 +106,13 @@ titlePart.innerText = "YOU DID IT!"
         return
     }
 
+}
+
+function fourHourKeeping(four, current){
+let resting = four - current
+fourHours = resting
+localStorage.setItem("fourHours",JSON.stringify(fourHours))
+return timeConvert(resting)
 }
 
 
