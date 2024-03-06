@@ -7,47 +7,78 @@ const resetButton = document.getElementById("reset-button")
 const titlePart = document.getElementById("title-part")
 const timeLeftContainer = document.getElementById("time-left")
 let myTime 
-
+let totalLeft
 let fourHours 
 let totalTime 
 
 
 addButton.addEventListener("click",function(){
+    if(inputTime.value){
     let inputNum = Number(inputTime.value)
     totalTime += inputNum
-    timeLeftContainer.innerHTML = fourHourKeeping(fourHours,totalTime)
-    localStorage.setItem("totalMin",JSON.stringify(totalTime)) //saving the total minutes to keep track off
-    myTime = timeConvert(totalTime)
-    localStorage.setItem("currentTime",myTime)
-    hourContainer.innerHTML = localStorage.getItem("currentTime") //we are just putting what we have inthe local staorage we just put in
+    totalLeft = totalLeftFactor(inputNum)
+    
+  updateStuff()
     checkTime(totalTime)
+    resetInput()
+}
 })
+function resetInput(){
+    inputTime.value = ""
+}
+
+function totalLeftFactor(sub){
+    totalLeft-= sub
+    if(totalLeft < 0){
+        totalLeft = 0
+    }else{
+        return totalLeft
+    }
+}
 
 resetButton.addEventListener("click",function(){
     myTime = "00:00"
     totalTime = 0
-    localStorage.setItem("totalMin",JSON.stringify(totalTime))
+    fourHours = "04:00"
+    totalLeft = 240
+    
+    setItems("totalMin",totalTime)
+    setItems("totalLeft",totalLeft)
+    
     hourContainer.innerHTML = myTime
+    timeLeftContainer.innerHTML = fourHours
     inputTime.value=""
     localStorage.clear()
     titlePart.innerText = "Current Hours"
 })
 
+function setItems(key,mins){
+    localStorage.setItem(key,JSON.stringify(mins))
+}
+
 thirtyButton.addEventListener("click",function(){
     totalTime += 30
-    localStorage.setItem("totalMin",JSON.stringify(totalTime))
-    myTime = timeConvert(totalTime)
-    localStorage.setItem("currentTime",myTime)
-    hourContainer.innerHTML = localStorage.getItem("currentTime")
+    totalLeft = totalLeftFactor(30)
+    updateStuff()
     checkTime(totalTime)
 
 })
+
+function updateStuff(){
+    setItems("totalMin",totalTime)
+    setItems("totalLeft",totalLeft)
+    myTime = timeConvert(totalTime)
+    fourHours = timeConvert(totalLeft)
+    setItems("currentTime",myTime)
+    setItems("fourHours",fourHours)
+    hourContainer.innerHTML = localStorage.getItem("currentTime")
+    timeLeftContainer.innerHTML = localStorage.getItem("fourHours")
+}
 hourButton.addEventListener("click",function(){
     totalTime +=60
-    localStorage.setItem("totalMin",JSON.stringify(totalTime))
-    myTime = timeConvert(totalTime)
-    localStorage.setItem("currentTime",myTime)
-    hourContainer.innerHTML = localStorage.getItem("currentTime")
+    totalLeft = totalLeftFactor(60)
+    updateStuff()
+  
     checkTime(totalTime)
 })
 
@@ -70,7 +101,7 @@ For example, if n is 65 minutes and minutes is 5 (since 65 % 60 equals 5),
  for exampke (60)/60 = 1 so if 
 
 */
-totalTime = n
+
 let result = ''
 if(minutes <10){
     result = `0${hours}:0${minutes}`
@@ -85,16 +116,23 @@ return result
 function setUp(){
     
     if(localStorage.getItem("currentTime")){
+        
         hourContainer.innerHTML = localStorage.getItem("currentTime")
         totalTime = JSON.parse(localStorage.getItem("totalMin"))
+        totalLeft = JSON.parse(localStorage.getItem("totalLeft"))
+        fourHours = timeConvert(totalLeft)
         myTime = timeConvert(totalTime)
+        checkTime(totalTime)
         console.log(totalTime)
     }else{
     
         myTime = "00:00"
+        fourHours="04:00"
         totalTime = 0
-        fourHours = 240
-        timeLeftContainer.innerHTML =  "04:00 left"
+        totalLeft = 240
+        setItems("totalMin",totalTime)
+        setItems("totalLeft",totalLeft)
+        timeLeftContainer.innerHTML =  "04:00"
         hourContainer.innerHTML = myTime
     }
     
@@ -102,18 +140,19 @@ function setUp(){
 function checkTime(numero){
     if(numero >= 240){
 titlePart.innerText = "YOU DID IT!"
+totalTime = 240
+totalLeft = 0 
+hourContainer.innerHTML = "04:00"
+timeLeftContainer.innerHTML =  "00:00"
+setItems("totalMin",totalTime)
+setItems("totalLeft",totalLeft)
+
     }else{
         return
     }
 
 }
 
-function fourHourKeeping(four, current){
-let resting = four - current
-fourHours = resting
-localStorage.setItem("fourHours",JSON.stringify(fourHours))
-return timeConvert(resting)
-}
 
 
 
