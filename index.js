@@ -118,6 +118,7 @@ function setUp(){
     if(localStorage.getItem("currentTime")){
         
         hourContainer.innerHTML = localStorage.getItem("currentTime")
+        timeLeftContainer.innerHTML =  localStorage.getItem("fourHours")
         totalTime = JSON.parse(localStorage.getItem("totalMin"))
         totalLeft = JSON.parse(localStorage.getItem("totalLeft"))
         fourHours = timeConvert(totalLeft)
