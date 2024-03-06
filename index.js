@@ -132,7 +132,7 @@ function setUp(){
         totalLeft = 240
         setItems("totalMin",totalTime)
         setItems("totalLeft",totalLeft)
-        timeLeftContainer.innerHTML =  "04:00"
+        timeLeftContainer.innerHTML =  fourHours
         hourContainer.innerHTML = myTime
     }
     
