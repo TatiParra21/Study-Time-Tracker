@@ -8,7 +8,7 @@ const titlePart = document.getElementById("title-part")
 const timeLeftContainer = document.getElementById("time-left")
 let myTime 
 let totalLeft
-let fourHours 
+let goalHours 
 let totalTime 
 
 
@@ -39,14 +39,14 @@ function totalLeftFactor(sub){
 resetButton.addEventListener("click",function(){
     myTime = "00:00"
     totalTime = 0
-    fourHours = "04:00"
-    totalLeft = 240
+    goalHours = "05:00"
+    totalLeft = 300
     
     setItems("totalMin",totalTime)
     setItems("totalLeft",totalLeft)
     
     hourContainer.innerHTML = myTime
-    timeLeftContainer.innerHTML = fourHours
+    timeLeftContainer.innerHTML = goalHours
     inputTime.value=""
     localStorage.clear()
     titlePart.innerText = "Current Hours"
@@ -68,11 +68,11 @@ function updateStuff(){
     setItems("totalMin",totalTime)
     setItems("totalLeft",totalLeft)
     myTime = timeConvert(totalTime)
-    fourHours = timeConvert(totalLeft)
+    goalHours = timeConvert(totalLeft)
     setItems("currentTime",myTime)
-    setItems("fourHours",fourHours)
+    setItems("goalHours",goalHours)
     hourContainer.innerHTML = localStorage.getItem("currentTime")
-    timeLeftContainer.innerHTML = localStorage.getItem("fourHours")
+    timeLeftContainer.innerHTML = localStorage.getItem("goalHours")
 }
 hourButton.addEventListener("click",function(){
     totalTime +=60
@@ -118,32 +118,32 @@ function setUp(){
     if(localStorage.getItem("currentTime")){
         
         hourContainer.innerHTML = localStorage.getItem("currentTime")
-        timeLeftContainer.innerHTML =  localStorage.getItem("fourHours")
+        timeLeftContainer.innerHTML =  localStorage.getItem("goalHours")
         totalTime = JSON.parse(localStorage.getItem("totalMin"))
         totalLeft = JSON.parse(localStorage.getItem("totalLeft"))
-        fourHours = timeConvert(totalLeft)
+        goalHours = timeConvert(totalLeft)
         myTime = timeConvert(totalTime)
         checkTime(totalTime)
         console.log(totalTime)
     }else{
     
         myTime = "00:00"
-        fourHours="04:00"
+        goalHours="05:00"
         totalTime = 0
-        totalLeft = 240
+        totalLeft = 300
         setItems("totalMin",totalTime)
         setItems("totalLeft",totalLeft)
-        timeLeftContainer.innerHTML =  fourHours
+        timeLeftContainer.innerHTML =  goalHours
         hourContainer.innerHTML = myTime
     }
     
 }
 function checkTime(numero){
-    if(numero >= 240){
+    if(numero >= 300){
 titlePart.innerText = "YOU DID IT!"
-totalTime = 240
+totalTime = 300
 totalLeft = 0 
-hourContainer.innerHTML = "04:00"
+hourContainer.innerHTML = "05:00"
 timeLeftContainer.innerHTML =  "00:00"
 setItems("totalMin",totalTime)
 setItems("totalLeft",totalLeft)
