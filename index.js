@@ -39,8 +39,8 @@ function totalLeftFactor(sub){
 resetButton.addEventListener("click",function(){
     myTime = "00:00"
     totalTime = 0
-    goalHours = "05:00"
-    totalLeft = 300
+    goalHours = "06:00"
+    totalLeft = 360
     
     setItems("totalMin",totalTime)
     setItems("totalLeft",totalLeft)
@@ -128,9 +128,9 @@ function setUp(){
     }else{
     
         myTime = "00:00"
-        goalHours="05:00"
+        goalHours="06:00"
         totalTime = 0
-        totalLeft = 300
+        totalLeft = 360
         setItems("totalMin",totalTime)
         setItems("totalLeft",totalLeft)
         timeLeftContainer.innerHTML =  goalHours
@@ -139,11 +139,11 @@ function setUp(){
     
 }
 function checkTime(numero){
-    if(numero >= 300){
+    if(numero >= 360){
 titlePart.innerText = "YOU DID IT!"
-totalTime = 300
+totalTime = 360
 totalLeft = 0 
-hourContainer.innerHTML = "05:00"
+hourContainer.innerHTML = "06:00"
 timeLeftContainer.innerHTML =  "00:00"
 setItems("totalMin",totalTime)
 setItems("totalLeft",totalLeft)
